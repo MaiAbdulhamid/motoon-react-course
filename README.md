@@ -11,7 +11,7 @@ React is a library for building user interfaces.
 To Answer Let's look at Vanilla Js and React Projects:
 
 
-(Vanilla Js](https://codesandbox.io/s/vanilla-js-demo-6049kj).
+[Vanilla Js](https://codesandbox.io/s/vanilla-js-demo-6049kj).
 
 
 [ReactJs](https://codesandbox.io/s/react-vs-vanilla-demo-uc08fv).
@@ -85,7 +85,6 @@ Imperative approach : is giving clear instructions, clear step-by-step instructi
    - Passing Data via "props".
    - The Concept of "Composition" ("children props")
    - Organizing Component Files
-   - 
 
 
 
