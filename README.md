@@ -5,9 +5,11 @@
 ### 1.1 React Basics
 
 - What is React?
+
 React is a library for building user interfaces.
 
 - Why would you use it?
+
 To Answer Let's look at Vanilla Js and React Projects:
 
 
