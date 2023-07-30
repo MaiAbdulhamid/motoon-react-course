@@ -53,8 +53,197 @@
       import * as user from "./A.js";
       alert(`Hello ${user.default} Your age is ${user.age}`)
     ```
-- Revisiting Variables & Values: ![Types and Values](https://user-images.githubusercontent.com/35450622/257054115-63507ef7-7aa6-4056-9f17-716ab395a227.png)
+- Revisiting Variables & Values:
 
+  ![Types and Values](https://user-images.githubusercontent.com/35450622/257054115-63507ef7-7aa6-4056-9f17-716ab395a227.png).
+  
+  - You use variables because they allow you to reuse a value and because they can help with code readability.
+ 
+  ![Variables](https://user-images.githubusercontent.com/35450622/257054490-313b658d-1bfd-49fd-bcb0-cdaf87ed9970.png).
+
+  - Define Variables Rules:
+    ```js
+      let name = "Mai";
+      name = "Ahmed";
+
+      const age = 28;
+    ```
+  ![Rules](https://user-images.githubusercontent.com/35450622/257054885-e782d71d-b8e8-4844-883e-cb9b02e8239a.png)
+
+- Functions & Parameters
+   - simply is that you're defining some code that's not executed immediately, but instead, at some point in the future when you call the function.
+   - create a function in JavaScript:
+     1.  Declaration Function
+        ```js
+            function sum(a, b) { return a + b; }
+        ```
+     2. Expression Function
+        ```js
+            //Can be named:
+            (function sum(a, b) { return a + b; });
+            
+            // Or anonymous (AVOID):
+            (function(a, b) { return a + b; });
+            
+            // Or assigned to a variable
+            const sum = function sum(a, b) { return a + b; })
+
+           //Calling
+           sum(1+2)
+        ```
+     3. Arrow Function
+    
+        ```js
+            // Regular:
+            (a, b) => { return a + b };
+            
+            // Single argument, one line return:
+            name => name.split(' ')
+            
+            // Multi arguments, one line return:
+            (a, b) => a + b
+            
+            // Single argument, full body:
+            name => { return name.split(' '); }
+        ```
+    
+- Objects & Classes
+  - Objects
+    ```js
+      const user = {
+         name: 'Mai',
+         age: 28,
+         greet(){
+          console.log(`Hello ${this.name}`)
+         }   
+       };
+       user.greet();
+       console.log(user.name);
+    ```
+  - Classes is a blueprints for objects
+    ```js
+    class User {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        greet(){
+          console.log(`Hello ${this.name}`)
+        }
+    }
+    const user = new User('Mai', 28)
+    user.greet()
+    ```
+- Arrays & Array Methods
+  - Arrays are objects, but they are special kinds of objects.
+  - the idea behind an array simply is that you can create a list of values.
+    ```js
+      const cars = ["Saab", "Volvo", "BMW"];
+      console.log(cars[0])
+
+      const modifiedCars = cars.map(car => car + '!');
+      console.log(modifiedCars)
+    ```
+  - `map()` allows you to transform every item in an array to another item.
+
+- Destructuring
+  - Destructuring in Arrays:
+  ```js
+   let a, b, rest;
+   let array = [10, 20]
+   [a, b] = array;
+   
+   console.log(a);
+   console.log(array[0])
+   // Expected output: 10
+   
+   console.log(b);
+   console.log(array[1])
+   // Expected output: 20
+   
+   [a, b, ...rest] = [10, 20, 30, 40, 50];
+   
+   console.log(rest);
+   // Expected output: Array [30, 40, 50]
+  ```
+  - Destructuring in Objects:
+  ```js
+   const obj = { a: 1, b: 2 };
+   const { a, b } = obj;
+   // is equivalent to:
+   // const a = obj.a;
+   // const b = obj.b;
+  ```
+  - Destructuring in Function Parameter:
+  ```js
+   function storeOrder({id, currency}) { // destructuring
+     localStorage.setItem('id', id);
+     localStorage.setItem('currency', currency);
+   }
+  ```
+
+- The Spread Operator
+  - It pulls out values from an array, and adds them as separate, comma separated values to a new array.
+  ```js
+   function sum(x, y, z) {
+     return x + y + z;
+   }
+   
+   const numbers = [1, 2, 3];
+   
+   console.log(sum(...numbers));
+  ```
+- Control Structures:
+  - If/else
+  ```js
+   function testNum(a) {
+     let result;
+     if (a > 0) {
+       result = 'positive';
+     } else {
+       result = 'NOT positive';
+     }
+     return result;
+   }
+   
+   console.log(testNum(-5));
+   // Expected output: "NOT positive"
+  ```
+  - for - loops through a block of code a number of times
+  ```js
+   for (let i = 0; i < cars.length; i++) {
+     text += cars[i] + "<br>";
+   }
+  ```
+  
+  - for/in - loops through the properties of an object
+    ```js
+      const object = { a: 1, b: 2, c: 3 };
+      
+      for (const property in object) {
+        console.log(`${property}: ${object[property]}`);
+      }
+      
+      // Expected output:
+      // "a: 1"
+      // "b: 2"
+      // "c: 3"
+    ```
+  - for/of - loops through the values of an iterable object
+    ```js
+      const array1 = ['a', 'b', 'c'];
+      
+      for (const element of array1) {
+        console.log(element);
+      }
+      
+      // Expected output: "a"
+      // Expected output: "b"
+      // Expected output: "c"
+    ```
+- Reference vs Primitive Values
+   - [Article](https://www.freecodecamp.org/news/primitive-vs-reference-data-types-in-javascript/)
+  
 ### 1.2 React Basics
 
 - What is React?
