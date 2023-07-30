@@ -53,7 +53,7 @@
       import * as user from "./A.js";
       alert(`Hello ${user.default} Your age is ${user.age}`)
     ```
-- Revisiting Variables & Values: [Types and Values](https://user-images.githubusercontent.com/35450622/257054115-63507ef7-7aa6-4056-9f17-716ab395a227.png)
+- Revisiting Variables & Values: ![Types and Values](https://user-images.githubusercontent.com/35450622/257054115-63507ef7-7aa6-4056-9f17-716ab395a227.png)
 
 ### 1.2 React Basics
 
