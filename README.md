@@ -55,11 +55,11 @@
     ```
 - Revisiting Variables & Values:
 
-  ![Types and Values](https://user-images.githubusercontent.com/35450622/257054115-63507ef7-7aa6-4056-9f17-716ab395a227.png).
+  ![Types and Values](https://user-images.githubusercontent.com/35450622/257054115-63507ef7-7aa6-4056-9f17-716ab395a227.png)
   
   - You use variables because they allow you to reuse a value and because they can help with code readability.
  
-  ![Variables](https://user-images.githubusercontent.com/35450622/257054490-313b658d-1bfd-49fd-bcb0-cdaf87ed9970.png).
+  ![Variables](https://user-images.githubusercontent.com/35450622/257054490-313b658d-1bfd-49fd-bcb0-cdaf87ed9970.png)
 
   - Define Variables Rules:
     ```js
