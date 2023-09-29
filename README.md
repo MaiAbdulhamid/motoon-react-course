@@ -6,6 +6,8 @@
 
 - [Starting Project](https://codesandbox.io/s/javascript-refresher-start-forked-3587t8).
 
+- [React Project](https://codesandbox.io/s/react-vs-vanilla-demo-forked-h4ftkq).
+
 -  Adding JavaScript To A Page & How React Projects Differ:
 
    - You can either put your JavaScript code between such script tags, or you can use those script tags to import JavaScript files.
