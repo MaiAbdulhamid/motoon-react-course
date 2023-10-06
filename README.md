@@ -338,7 +338,7 @@ Imperative approach : is giving clear instructions, clear step-by-step instructi
 
 - [Starting Project](https://codesandbox.io/s/practice-cmp-start-forked-qll42n?file=/src/hints:39-51).
 
-![Tasks](https://user-images.githubusercontent.com/35450622/273007910-15b64355-39ab-479b-8591-1cb337fef731.png).
+![Tasks](https://user-images.githubusercontent.com/35450622/273007910-15b64355-39ab-479b-8591-1cb337fef731.png)
 
 ### 2.2 React Events
 ### 2.3 State
@@ -380,6 +380,8 @@ form button{
 - `console.log` data.
 - How to clear input values? By listen to state value in each input. This is called **Two-way binding**.
 - The Goal is to add item to the array of questions.By passing data from child to parent.
+- **Lifting State Up**: concept of moving data from a child to a parent component by utilizing props to receive a function from the parent component which we call in the child component.
+- App.js:
 ```js
 import "./styles.css";
 import Questions from "./Questions";
@@ -410,6 +412,56 @@ function App() {
 }
 
 export default App;
+```
+- Form.js:
+```js
+import { useState } from "react";
+const initialValue = {
+  title: "",
+  description: ""
+}
+const NewQuestionForm = (props) => {
+  const [userInput, setUserInput] = useState(initialValue);
+  const inputChangeHandler = (type, value) => {
+    if (type === "title") {
+      setUserInput((prevState) => ({
+        ...prevState,
+        title: value
+      }));
+    }else{
+      setUserInput((prevState) => ({
+        ...prevState,
+        description: value
+      }));
+    }
+  };
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    props.onAddQuestion(userInput)
+    setUserInput(initialValue)
+  }
+  return (
+    <form onSubmit={onSubmitHandler}>
+      <div>
+        <label>Title</label>
+        <input
+          type="text"
+          onChange={(e) => inputChangeHandler("description", e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Description</label>
+        <textarea
+          rows={6}
+          onChange={(e) => inputChangeHandler("title", e.target.value)}
+        />
+      </div>
+      <button type="submit">Add Question</button>
+    </form>
+  );
+};
+
+export default NewQuestionForm;
 
 ```
 
