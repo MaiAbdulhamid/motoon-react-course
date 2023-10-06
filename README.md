@@ -341,6 +341,66 @@ Imperative approach : is giving clear instructions, clear step-by-step instructi
 ![Tasks](https://user-images.githubusercontent.com/35450622/273007910-15b64355-39ab-479b-8591-1cb337fef731.png)
 
 ### 2.2 React Events
+
+- So instead of adding a listener as we would normally do it, which would be the imperative way of doing that.
+```js
+function App() {
+  document.getElementById('button').addEventListner('click', () => {
+      ///Do something
+   })
+  return (
+    <div className="app">
+      <h1>"Project: FAQ/Accordion"</h1>
+      <button id='button' >Change Title</button>
+    </div>
+  );
+}
+```
+- Adding Events: On all built-in HTML elements, like divs and h2, and especially all the buttons and so on,we have full access to all these native DOM events which we can listen to.
+- All these event handler props, want a function as a value, a function passed as a value for `onClick`.
+```js
+function App() {
+  return (
+    <div className="app">
+      <h1>"Project: FAQ/Accordion"</h1>
+      <button onClick={() => console.log("clickced")} >Change Title</button>
+    </div>
+  );
+}
+```
+- We just point at handler Function. We don't execute it here. You don't add parentheses.
+- Because if you would add parentheses here, JavaScript would execute this when this line of code is being parsed. And this line of code is being parsed when the JSX code is returned.
+- So it's then not executing clickHandler when the click occurs but when this JSX code is evaluated, and that would be too early.
+- We pass a pointer at this function as a value to onClick, and then React basically memorizes this and executes the function for us whenever the click occurs.
+
+  
+- If we change title by Variable it will not work:
+```js
+function App() {
+   let title = "Project: FAQ/Accordion";
+   const clickButtonHandler = () => {
+      title = 'Title Changed!!!'
+      console.log("clickced")
+   }
+  return (
+    <div className="app">
+      <h1>{title}</h1>
+      <button onClick={clickButtonHandler} >Change Title</button>
+    </div>
+  );
+}
+```
+- Why?
+   - keep in mind that your component is a function. the only special thing about that function, is that it returns JSX.
+   - since it's a function someone has to call it, and you might notice that we never called our component functions, instead we just used these functions like HTML elements in this JSX code.
+   - Well, the thing is, under the hood this is almost like a function call.
+   - whenever react evaluates this JSX code, it will call these component functions. And these component functions stand to return JSX code, which is all the evaluated, up until there's no more JSX code to be evaluated.
+   - And then it re-evaluates the overall result and translates that into DOM instructions which renders something like this on the screen.
+   - The only problem with that is, that react never repeats that. React goes through all of that when the application is initially rendered, but thereafter it's done.
+   - So we need a way of telling react that something changed and that a certain component should be re-evaluated
+
+
+
 ### 2.3 State
 
 #### Working with forms
@@ -464,7 +524,14 @@ const NewQuestionForm = (props) => {
 export default NewQuestionForm;
 
 ```
-
+- We are passing data up to some parent component because we either need that data directly in the app component
+or because we then wanna pass that data down to another component via props.
+-  **Derived state**: If you are setting a state that in the end is directly related to another state, you typically don't wanna manage this as a separate state. Instead you just want to add a new variable, a good old variable in your component function.
+- So this here is a computed value, a value which we derive based on this state.
+- **Uncontrolled Component**: in React are those in which form data is handled by the DOM.
+- **Controlled components**: in React are those in which form data is handled by the component’s state.
+- **Presentational or dumb component**: it doesn't have any internal state it's just there to output some data.
+- **Stateful components**: If the component is responsible for managing some data, removing side effects, and contains states, this component is called a Stateful Component.
 
 
 
