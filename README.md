@@ -397,11 +397,25 @@ function App() {
    - whenever react evaluates this JSX code, it will call these component functions. And these component functions stand to return JSX code, which is all the evaluated, up until there's no more JSX code to be evaluated.
    - And then it re-evaluates the overall result and translates that into DOM instructions which renders something like this on the screen.
    - The only problem with that is, that react never repeats that. React goes through all of that when the application is initially rendered, but thereafter it's done.
-   - So we need a way of telling react that something changed and that a certain component should be re-evaluated
-
-
+   - So we need a way of telling react that something changed and that a certain component should be re-evaluated.
+   - So that we need `State`
 
 ### 2.3 State
+- we import a function, which is called `useState`.
+- this function allows us to define values as state where changes to these values should reflect in the component function being called again.
+
+- How do we use this useState function though?
+  
+   - Inside of our component function and that's important, we have to do that inside of this function. We just call useState.
+   - And useState is a so-called React hook.
+   - All these React hooks can be recognized by the fact that they start with the word "use" in their name.
+   - useState takes a default state value.
+   - with useState we basically create a special kind of variable, you could say, a variable where changes will lead this component function to be called again.
+   - we simply pass this innitial value as an argument to `useState`.
+   - for that useState actually returns an array where the first value is the variable itself, the `current state` value., you could say, the value itself.And the second element in the array is that `updating function`.
+     
+- Why do we have this state updating function instead of assigning a new value like this?
+   - The reason for that is, that calling this function does not just assign a new value to some variable, but that instead it is a special variable to begin with. It's managed by React somewhere in memory. And when we call this state updating function, this special variable will not just receive a new value but, the component function in which you called this state updating function. will be executed again.
 
 #### Working with forms
 ```js
