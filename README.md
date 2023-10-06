@@ -343,9 +343,10 @@ Imperative approach : is giving clear instructions, clear step-by-step instructi
 ### 2.2 React Events
 
 - So instead of adding a listener as we would normally do it, which would be the imperative way of doing that.
+- you automatically get an `event` object which describes the event which occurred.
 ```js
 function App() {
-  document.getElementById('button').addEventListner('click', () => {
+  document.getElementById('button').addEventListner('click', (e) => {
       ///Do something
    })
   return (
@@ -373,7 +374,6 @@ function App() {
 - So it's then not executing clickHandler when the click occurs but when this JSX code is evaluated, and that would be too early.
 - We pass a pointer at this function as a value to onClick, and then React basically memorizes this and executes the function for us whenever the click occurs.
 
-  
 - If we change title by Variable it will not work:
 ```js
 function App() {
@@ -416,6 +416,13 @@ function App() {
      
 - Why do we have this state updating function instead of assigning a new value like this?
    - The reason for that is, that calling this function does not just assign a new value to some variable, but that instead it is a special variable to begin with. It's managed by React somewhere in memory. And when we call this state updating function, this special variable will not just receive a new value but, the component function in which you called this state updating function. will be executed again.
+ 
+- `useState` is a per component instance basis. Every component receives its own separate State.
+- Why am I using `const` here when we do eventually assign a new value?
+   - we're not assigning a value with the equal sign. That would indeed fail but that is not how we assign a new value when we update a State. Instead we call this State updating function, and the concrete value is simply managed somewhere else by React.
+   - By calling useState we tell React that it should manage some value for us. We never see that variable itself.
+ 
+- React keeps track of when we call useState in a given component instance for the first time. And when we call it for the first time ever, it'll take that argument as an initial value. But if a component is then re-executed because of such a State change, for example, React will not reinitialize the State. Instead, it will detect that this State had been initialized in the past, and it will just grab the latest State which is based on some State update, for example, and give us that State instead.
 
 #### Working with forms
 ```js
