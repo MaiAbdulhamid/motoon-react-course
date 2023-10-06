@@ -1,6 +1,6 @@
 # motoon-react-course
 
-## 1. Lecture #1
+## Lecture #1
 
 ### 1.1 JS Refresher
 
@@ -331,6 +331,87 @@ Imperative approach : is giving clear instructions, clear step-by-step instructi
    - Passing Data via "props".
    - The Concept of "Composition" ("children props")
    - Organizing Component Files
+ 
+## Lecture #2
+
+### 2.1 Practice
+
+- [Starting Project](https://codesandbox.io/s/practice-cmp-start-forked-qll42n?file=/src/hints:39-51).
+
+![Tasks](https://user-images.githubusercontent.com/35450622/273007910-15b64355-39ab-479b-8591-1cb337fef731.png).
+
+### 2.2 React Events
+### 2.3 State
+
+#### Working with forms
+```js
+   <form>
+     <div>
+       <label>Title</label>
+       <input type='text' />
+     </div>
+     <div>
+       <label>Description</label>
+       <textarea rows={6} />
+     </div>
+     <button type="submit">Add Question</button>
+   </form>
+```
+- Styling form:
+```
+form div{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+form input, form textarea{
+  width:70%;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius:10px
+}
+form button{
+   margin: 1rem 0
+}
+```
+- Submitting the form by `onSubmit` event handler.
+- `e.preventDefault()`: prevents the reload.
+- `console.log` data.
+- How to clear input values? By listen to state value in each input. This is called **Two-way binding**.
+- The Goal is to add item to the array of questions.By passing data from child to parent.
+```js
+import "./styles.css";
+import Questions from "./Questions";
+import NewQuestionForm from "./components/NewQuestionForm";
+
+const DUMMY_QUESTIONS = [
+   ...
+];
+const addQuestionHandelr = (question) => {
+  console.log(question);
+  const enteredQuestion = {
+    ...question,
+    id: Math.random().toString(),
+  }
+  console.log(enteredQuestion);
+}
+function App() {
+   return (
+    <div className="app">
+      <h1>"Project: FAQ/Accordion"</h1>
+      {/* Questions Goes Here */}
+      <NewQuestionForm onAddQuestion={addQuestionHandelr} />
+      <div className="container">
+        <Questions questions={DUMMY_QUESTIONS} />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+```
 
 
 
