@@ -554,6 +554,101 @@ or because we then wanna pass that data down to another component via props.
 - **Presentational or dumb component**: it doesn't have any internal state it's just there to output some data.
 - **Stateful components**: If the component is responsible for managing some data, removing side effects, and contains states, this component is called a Stateful Component.
 
+## Lecture #3
+
+### 3.1 Rendering lists
+- [Project](https://codesandbox.io/s/headless-platform-mdsdy6?file=/src/Question.js).
+- Rendernig Question:
+  ```
+  props.questions.map(q => (
+     <Question key={q.id} question={q} />
+  ))
+  ```
+- React assigns every item a unique key attribute and so is able to keep track of them despite any changes. This helps in ensuring that you do not end up messing up your code when changes occur in your lists.
+- With the key attribute any changes such as re-ordering, adding, or removing items from the array be can tracked.
+
+### 3.2 styling
+1- using file.css and import it.
+   - one disadvantage of using Vanilla CSS, is that the CSS rules and your CSS code in general, is not scoped to the component to which you maybe want it to belong.
+2- inline styles: instead of defining CSS styles in a CSS file, you apply them right in your JSX code.
+   - It is usefull for the conditional styles
+   ```
+    style={{background: showP ? '#ddd' : '#fff'}}
+   ```
+   - [Task1](https://codesandbox.io/s/autumn-leaf-6nhprq).
+3- Adding className Conditionaly:
+   ```
+      className={`${showP ? opened : "closed"} wrapper`}
+   ```
+   - [Task2](https://codesandbox.io/s/autumn-leaf-6nhprq).
+   ```
+   import React from 'react'
+   function App() {
+     const [classes, setClass] = React.useState('');
+     const yesClicked = () => {
+         setClass('highlight-green')
+     }
+     const noClicked = () => {
+         setClass('highlight-red')
+     }
+     return (
+       <div id="app">
+         <h1 className={classes}>CSS is great!</h1>
+         <menu>
+           <li>
+             <button onClick={yesClicked}>Yes</button>
+           </li>
+           <li>
+             <button onClick={noClicked}>No</button>
+           </li>
+         </menu>
+       </div>
+     );
+   }
+   
+   export default App;
+   
+   ```
+
+4- CSS Modules, which allows you to write Vanilla CSS code and rules that are then scoped.
+   -  CSS Modules is an approach where the build tool will transform your CSS class names and only those two class names that are guaranteed to be unique per file.
+   -  [Tagged_templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates).
+   ```js
+   const H2 = styled.h2`
+      margin: 0 auto;
+      text-align: center;
+      padding: 10px 0 20px 0;
+      color: white;
+   `;
+   ```
+   - We can use dynamic values and pass props
+   - For jx:
+   ```
+   <Div opened={showP}>
+      ...
+   </Div>
+   
+   ```
+   - for styled component:
+   ```js
+   const Div = styled.div`
+      background-color: ${({opened}) => opened ? "#ddd" : "#fff"}
+   `;
+   ```
+   - We can use nested elements:
+   ```js
+   const Div = styled.div`
+      background-color: ${({opened}) => opened ? "#ddd" : "#fff"};
+      & h3{
+        margin: 0 auto;
+        text-align: center;
+        padding: 10px 0 20px 0;
+        color: white;
+      }
+   `;
+   ```
+5- Tailwind Css
+   - [Tailwind](https://tailwindcss.com/).
 
 
 
