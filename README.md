@@ -650,6 +650,188 @@ or because we then wanna pass that data down to another component via props.
 5- Tailwind Css
    - [Tailwind](https://tailwindcss.com/).
 
+## Lecture #4
+
+### 4.1 Fragments
+- [starting Project Download](https://github.com/MaiAbdulhamid/motoon-react-course/blob/master/refs-potrals.zip).
+- [starting Project Codesandbox](https://codesandbox.io/s/jsx-limitations-workarounds-forked-pnyp2r)
+- You can't have more than one root JSX element.
+- We could use `div` or array of jsx elements.
+  ```
+  [
+  error && (
+        <ErrorModal
+          key="error-modal"
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      ),
+      <Card className={classes.input}>
+        <form key="add-user-form" onSubmit={addUserHandler}>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            value={enteredUsername}
+            onChange={usernameChangeHandler}
+          />
+          <label htmlFor="age">Age (Years)</label>
+          <input
+            id="age"
+            type="number"
+            value={enteredAge}
+            onChange={ageChangeHandler}
+          />
+          <Button type="submit">Add User</Button>
+        </form>
+      </Card>
+  ]
+  ```
+  - Using extra  `div` tag not a good idea.
+  - we use `React.Fragment` or `<></>`.
+  - Fragments allow us to write cleaner code, to end up with less unnecessary HTML elements on the final page.
+
+  ### 4.2 Portals
+  ![why Portals](https://user-images.githubusercontent.com/35450622/281875494-0005970c-adca-4fc0-815d-e46a55cd311d.png)
+  - Modlas: basically is an overlay on your page.
+  - because if, for example, a screen reader has to interpret your HTML code, which is being rendered, it might not see this as a general overlay.
+  - It's like you create `div` and give it an event listner.
+  - You can make a lot of things work, but that doesn't mean that just because it works, it's also a good implementation.
+  ![Portals](https://user-images.githubusercontent.com/35450622/281870591-2a7a9d02-0871-44cf-a90e-185a7f51fa74.png)
+  - Go to `index.html`:
+    ```
+     <div id="backdrop-root"></div>
+     <div id="overly-root"></div>
+    ```
+  - in Modal Component:
+    ```
+      import React from "react";
+      import ReactDOM from "react-dom";
+      import Card from "./Card";
+      import Button from "./Button";
+      import classes from "./ErrorModal.module.css";
+      
+      const Backdrop = (props) => {
+        return <div className={classes.backdrop} onClick={props.onConfirm} />;
+      };
+      
+      const Overlay = (props) => {
+        return (
+          <Card className={classes.modal}>
+            <header className={classes.header}>
+              <h2>{props.title}</h2>
+            </header>
+            <div className={classes.content}>
+              <p>{props.message}</p>
+            </div>
+            <footer className={classes.actions}>
+              <Button onClick={props.onConfirm}>Okay</Button>
+            </footer>
+          </Card>
+        );
+      };
+      const ErrorModal = (props) => {
+        return (
+          <>
+            {ReactDOM.createPortal(
+              <Backdrop onConfirm={props.onConfirm} />,
+              document.getElementById("backdrop-root")
+            )}
+            {ReactDOM.createPortal(
+              <Overlay title={props.title} message={props.message} onConfirm={props.onConfirm} />,
+              document.getElementById("overly-root")
+            )}
+          </>
+        );
+      };
+      
+      export default ErrorModal;
+    ```
+
+ - The idea really just is that the rendered HTML content is moved somewhere else.
+
+ ### 4.3 Refs
+ - Refs are actually quite powerful as we will see throughout the course but in their most basic form, they allow us to get access to other DOM elements and work with them.
+ - With refs, we can set up a connection between a HTML element which is being rendered in the end and our other JavaScript code.
+ - What will end up inside of nameInputRef in the end will really be a real DOM element later.
+ - This ref value, which is being generated here always is an object, which always has a `current` prop and the current prop holds the actual `value`.
+   ```
+   import React, { useState, useRef } from 'react';
+   
+   import Card from '../UI/Card';
+   import Button from '../UI/Button';
+   import ErrorModal from '../UI/ErrorModal';
+   import classes from './AddUser.module.css';
+   
+   const AddUser = (props) => {
+     const [error, setError] = useState();
+     const nameInputRef = useRef();
+     const ageInputRef = useRef();
+   
+     const addUserHandler = (event) => {
+       event.preventDefault();
+       const enteredUsername = nameInputRef.current.value;
+       const enteredAge = ageInputRef.current.value;
+   
+       if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+         setError({
+           title: 'Invalid input',
+           message: 'Please enter a valid name and age (non-empty values).',
+         });
+         return;
+       }
+       if (+enteredAge < 1) {
+         setError({
+           title: 'Invalid age',
+           message: 'Please enter a valid age (> 0).',
+         });
+         return;
+       }
+       props.onAddUser(enteredUsername, enteredAge);
+     };
+     const errorHandler = () => {
+       setError(null);
+     };
+   
+     return (
+       <div>
+         {error && (
+           <ErrorModal
+             title={error.title}
+             message={error.message}
+             onConfirm={errorHandler}
+           />
+         )}
+         <Card className={classes.input}>
+           <form onSubmit={addUserHandler}>
+             <label htmlFor="username">Username</label>
+             <input
+               id="username"
+               type="text"
+               ref={nameInputRef}
+             />
+             <label htmlFor="age">Age (Years)</label>
+             <input
+               id="age"
+               type="number"
+               ref={ageInputRef}
+             />
+             <Button type="submit">Add User</Button>
+           </form>
+         </Card>
+       </div>
+     );
+   };
+   
+   export default AddUser;
+
+   ```
+
+ 
+  
+
+
 
 
   
